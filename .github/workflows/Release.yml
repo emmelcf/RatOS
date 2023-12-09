@@ -13,8 +13,8 @@ jobs:
     name: Push version number
     runs-on: ubuntu-latest
     steps:
-      - name: Clone develop repository
-        uses: actions/checkout@v3
+      - name: Clone v2.x repository
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: "v2.x"
@@ -50,7 +50,7 @@ jobs:
       date: ${{ steps.base-name.outputs.date }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: "v2.x"
           fetch-depth: 0
@@ -94,15 +94,17 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: v2.x
 
       - name: Create Matrix
         id: set-matrix
         run: |
-          ARRAY=$(find ${{ github.workspace }}/config -type f -printf '%P\n' | sed '/default/d' | sort | jq -R -s -c 'split("\n")[:-1]')
-          echo "matrix=${ARRAY}" >> $GITHUB_OUTPUT
+          PY_INT=$(command -v python3)
+          CONFIG="${{ github.workspace }}/.github/workflow_config.yml"
+          GROUP="release"
+          $PY_INT ${{ github.workspace }}/.github/scripts/setup_matrix.py -c $CONFIG -g $GROUP --git
 
   build:
     needs: [release, matrix]
