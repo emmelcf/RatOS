@@ -14,6 +14,7 @@ if [[ "${DEBIAN_FRONTEND}" != "noninteractive" ]]; then
     export DEBIAN_FRONTEND=noninteractive
 fi
 
+# shellcheck source=/dev/null
 source /common.sh
 install_cleanup_trap
 
@@ -25,6 +26,7 @@ gitclone RATOS_CONFIG RatOS
 gitclone RATOS_THEME .theme
 pushd "/home/${BASE_USER}"
 gitclone RATOS_CONFIGURATOR ratos-configurator
+gitclone RATOS_KINEMATICS ratos-kinematics
 popd
 popd
 
@@ -57,7 +59,7 @@ if [[ -f "/etc/armbian-release" ]]; then
     ln -s /etc/"${DIST_NAME,,}"-release /etc/aaaa-release
 fi
 ### END Substep 1
-### Substep 2: Apply same for OrangePI bsed Images
+### Substep 2: Apply same for OrangePI based Images
 if [[ -f "/etc/orangepi-release" ]]; then
     echo_green "Apply release file workaround (orangepi based image) ..."
     ln -s /etc/"${DIST_NAME,,}"-release /etc/aaaa-release
@@ -79,11 +81,20 @@ echo "Starting RatOS Configurator"
 pushd "/home/${BASE_USER}/ratos-configurator"
 sudo -u "${BASE_USER}" npm run start &
 # Wait for configurator to start
+# shellcheck disable=SC2016
 timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3000)" != "404" ]]; do sleep 5; done' || false
 popd
+
+# Make RatOS configurator bash api helpers available to thirdparty modules
+# shellcheck source=/dev/null
+source /home/"${BASE_USER}"/ratos-configurator/scripts/external-helper.sh
+
 # Install RatOS Configuration
 sudo -u pi bash /home/"${BASE_USER}"/printer_data/config/RatOS/scripts/ratos-install.sh
 sudo update-rc.d ratos defaults
+
+# Install RatOS Kinematics
+sudo -u pi bash /home/"${BASE_USER}"/ratos-kinematics/ratos-setup.sh
 
 # Create variant file
 echo "${BASE_DISTRO}" > /etc/"${BASE_DISTRO}"-variant
