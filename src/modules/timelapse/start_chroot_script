@@ -29,6 +29,9 @@ fi
 ## Source CustomPIOS common.sh
 # shellcheck source=/dev/null
 source /common.sh
+# shellcheck source=/dev/null
+source "${RATOS_EXTERNAL_HELPER}"
+
 install_cleanup_trap
 
 ## helper func moonraker update_manager

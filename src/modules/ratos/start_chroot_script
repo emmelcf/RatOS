@@ -90,11 +90,11 @@ popd
 source /home/"${BASE_USER}"/ratos-configurator/scripts/external-helper.sh
 
 # Install RatOS Configuration
-sudo -u pi bash /home/"${BASE_USER}"/printer_data/config/RatOS/scripts/ratos-install.sh
+sudo -u pi /home/"${BASE_USER}"/printer_data/config/RatOS/scripts/ratos-install.sh
 sudo update-rc.d ratos defaults
 
 # Install RatOS Kinematics
-sudo -u pi bash /home/"${BASE_USER}"/ratos-kinematics/ratos-setup.sh
+sudo -u pi /home/"${BASE_USER}"/ratos-kinematics/ratos-setup.sh
 
 # Create variant file
 echo "${BASE_DISTRO}" > /etc/"${BASE_DISTRO}"-variant
