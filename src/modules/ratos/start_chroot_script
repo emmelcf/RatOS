@@ -87,7 +87,7 @@ popd
 
 # Make RatOS configurator bash api helpers available to thirdparty modules
 # shellcheck source=/dev/null
-source /home/"${BASE_USER}"/ratos-configurator/scripts/external-helper.sh
+source "${RATOS_EXTERNAL_HELPER}"
 
 # Install RatOS Configuration
 sudo -u pi /home/"${BASE_USER}"/printer_data/config/RatOS/scripts/ratos-install.sh
