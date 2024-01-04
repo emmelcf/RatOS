@@ -6,8 +6,6 @@ set -xe
 
 # shellcheck source=/dev/null
 source /common.sh
-# shellcheck source=/dev/null
-source "${RATOS_EXTERNAL_HELPER}"
 install_cleanup_trap
 
 echo_green "Installing Klipper Linear Movement Analysis by MarschallMarc#6420"
@@ -19,7 +17,7 @@ gitclone LINEAR_MOVEMENT_ANALYSIS klipper_linear_movement_analysis
 EXTENSION_PATH="/home/${BASE_USER}/klipper_linear_movement_analysis"
 SCRIPT_NAME="linear_movement_vibrations.py"
 
-register_klippy_extension "linear_movement_analysis" "${EXTENSION_PATH}" "${SCRIPT_NAME}"
+ratos extensions register "linear_movement_analysis" "${EXTENSION_PATH}/${SCRIPT_NAME}"
 
 echo_green "Installing matplotlib for python 2"
 
