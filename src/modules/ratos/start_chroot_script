@@ -85,14 +85,9 @@ sudo -u "${BASE_USER}" npm run start &
 timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3000)" != "404" ]]; do sleep 5; done' || false
 popd
 
-# Make RatOS configurator bash api helpers available to thirdparty modules
-# shellcheck source=/dev/null
-if [[ ! -f /home/"${BASE_USER}"/.bashrc ]]; then
-    touch /home/"${BASE_USER}"/.profile
-fi
-printf "source %s \n" "$RATOS_EXTERNAL_HELPER" >> /home/"${BASE_USER}"/.profile
-echo "WROTE TO .profile"
-cat /home/"${BASE_USER}"/.profile
+echo "RATOS CLI SANITY CHECKS"
+echo $PATH
+ls -la /usr/local/bin
 
 # Install RatOS Configuration
 sudo -u "${BASE_USER}" /home/"${BASE_USER}"/printer_data/config/RatOS/scripts/ratos-install.sh
