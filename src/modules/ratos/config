@@ -19,7 +19,6 @@
 [ -n "$RATOS_CONFIGURATOR_BRANCH" ] || RATOS_CONFIGURATOR_BRANCH=dev-deployment
 [ -n "$RATOS_KINEMATICS_SHIP" ] || RATOS_KINEMATICS_SHIP=https://github.com/HelgeKeck/klipper_hybrid_corexy.git
 [ -n "$RATOS_KINEMATICS_BRANCH" ] || RATOS_KINEMATICS_BRANCH=ft-ratos-integration
-[ -n "$RATOS_EXTERNAL_HELPER" ] || RATOS_EXTERNAL_HELPER=/home/"${BASE_USER}"/ratos-configurator/scripts/external-helper.sh
 
 #### NOTE:
 #### python3-serial is a klipper requirement

@@ -72,7 +72,7 @@ gitclone TIMELAPSE_REPO moonraker-timelapse
 
 ## Link component
 if [[ -d "${TIMELAPSE_PYTHON_VENV_DIR}" ]]; then
-    register_moonraker_extension "timelapse" "${TIMELAPSE_SRC_DIR}/component" "timelapse.py"
+    ratos extensions register moonraker "timelapse" "${TIMELAPSE_SRC_DIR}/component/timelapse.py"
 fi
 
 ## Link timelapse.cfg
