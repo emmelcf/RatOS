@@ -9,6 +9,10 @@ sidebar_position: 1
 
 ## Raspberry Pi Installation
 
+:::warning USE PROPER AUTHENTIC SD CARDS
+There are multiple examples of bad quality sd cards causing boot and corruption issues. It's highly recommended to get SanDisk Ultra U1 A1 cards (16GB or larger) from an official source to ensure long life and reliable operation of your Raspberry Pi.
+:::
+
 Download the newest release (download the RatOS-\*.img.xz file under the assets dropdown) of [RatOS on github](https://github.com/Rat-Os/RatOS/releases/latest).
 Then use [Balena Etcher](https://www.balena.io/etcher/) to write that image to the SD card that goes into your raspberry pi (16GB or larger).
 
